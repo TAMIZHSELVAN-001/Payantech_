@@ -11,6 +11,8 @@ import base64
 import uuid
 from django.core.files.base import ContentFile
 
+def home(request):
+    return render(request, "index.html")
 
 def login_view(request):
     if request.method == "POST":
