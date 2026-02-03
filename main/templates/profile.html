@@ -1,0 +1,326 @@
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PAYANTECH | User Profile</title>
+    <link rel="icon" href="{% static 'images/logo2.png' %}">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
+
+</head>
+
+<body>
+    <!-- Django Messages -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="django-message" data-type="{% if message.tags %}{{ message.tags }}{% else %}info{% endif %}" style="display: none;">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <img src="{% static 'images/logo.png' %}" alt="Logo" class="logo"/>
+        <div class="navbar-container">
+            <button class="navbar-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            
+            <ul class="navbar-menu effect">
+                <li><a href="{% url 'home' %}"><span><i class="fas fa-home"></i> Home</span></a></li>
+                <li><a href="{% url 'services' %}"><span><i class="fas fa-briefcase"></i> Services</span></a></li>
+                <li><a href="{% url 'contact' %}"><span><i class="fas fa-envelope"></i> Contact Us</span></a></li>
+                <li><a href="{% url 'profile' %}" class="active"><span><i class="fas fa-user-circle"></i> Profile</span></a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Profile Container -->
+    <div class="profile-container">
+        <!-- Profile Header -->
+        <div class="profile-header">
+            <h1>{{ user.username }}</h1>
+            <p>Your Personal Dashboard</p>
+        </div>
+
+        <!-- Profile Content -->
+        <div class="profile-content">
+
+        <!-- Profile Picture Section -->
+        <div class="profile-section">
+            <div class="section-title">
+                <i class="fas fa-camera"></i> Profile Picture
+            </div>
+
+            <div class="profile-picture-section">
+                <div class="profile-picture-container" id="profilePictureDisplay">
+                    {% if profile.profile_picture %}
+                        <img src="{{ profile.profile_picture.url }}" alt="Profile Picture">
+                    {% else %}
+                        <div class="profile-picture-placeholder">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="picture-actions">
+                    <button type="button" class="btn-small btn-upload" onclick="triggerFileInput()">
+                        <i class="fas fa-upload"></i> Upload Picture
+                    </button>
+                    {% if profile.profile_picture %}
+                    <button type="button" class="btn-small btn-delete" onclick="deleteProfilePicture()">
+                        <i class="fas fa-trash"></i> Remove Picture
+                    </button>
+                    {% endif %}
+                </div>
+
+                <input type="file" id="profilePictureInput" name="profile_picture" accept="image/*" onchange="handleImageSelect(event)" style="display: none;">
+            </div>
+        </div>
+
+        <div id="cropModal" class="crop-modal hidden">
+            <div class="crop-container">
+              <img id="cropImage" />
+              <div class="crop-actions">
+                <button class="btn btn-primary" onclick="cropAndUpload()">Crop & Save</button>
+                <button class="btn btn-secondary" onclick="closeCropModal()">Cancel</button>
+              </div>
+            </div>
+        </div>
+
+        <!-- Account Information Section -->
+        <div class="profile-section">
+            <div class="section-title">
+                <i class="fas fa-user"></i> Account Information
+            </div>
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-label">Username</div>
+                    <div class="info-value">{{ user.username }}</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Email Address</div>
+                    <div class="info-value">{{ user.email }}</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Login & Security Information -->
+        <div class="profile-section">
+            <div class="section-title">
+                <i class="fas fa-lock"></i> Login & Security Information
+            </div>
+            <div class="login-info">
+                <div class="login-item">
+                    <div class="info-label"><i class="fas fa-calendar-alt"></i> Account Created</div>
+                    <div class="info-value">{{ user.date_joined|date:"d M Y, H:i" }}</div>
+                    <span class="status-badge">Member for {{ user.date_joined|timesince }}</span>
+                </div>
+                <div class="login-item login-item-dark">
+                    <div class="info-label"><i class="fas fa-check-circle"></i> Account Status</div>
+                    <div class="info-value">Active</div>
+                    <span class="status-badge" style="background: #d1ecf1; color: #0c5460;">Verified</span>
+                </div>
+            </div>
+            <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #6c757d;">
+                <p style="font-size: 0.9rem; color: #666;">
+                    <i class="fas fa-info-circle"></i> You are currently logged in. 
+                    <br>
+                    <strong>Last activity:</strong>
+                    {% if user.last_login %}
+                        {{ user.last_login|date:"d M Y, H:i" }}
+                    {% else %}
+                        Never logged in
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+
+        <!-- Profile Details Section -->
+        <div class="profile-section">
+            <div class="section-title">
+                <i class="fas fa-edit"></i> Profile Details
+            </div>
+
+            <!-- View Mode -->
+            <div class="view-mode" id="viewMode">
+                <div class="info-grid">
+                    <div class="info-item" style="grid-column: 1 / -1;">
+                        <div class="info-label">Phone Number</div>
+                        <div class="info-value" id="phoneDisplay">
+                            {% if profile.phone %}
+                                {{ profile.phone }}
+                            {% else %}
+                                <span style="color: #999; font-style: italic;">Not provided</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="info-grid">
+                    <div class="info-item" style="grid-column: 1 / -1;">
+                        <div class="info-label">Bio</div>
+                        <div class="info-value" id="bioDisplay" style="white-space: pre-wrap;">
+                            {% if profile.bio %}
+                                {{ profile.bio }}
+                            {% else %}
+                                <span style="color: #999; font-style: italic;">No bio added yet</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button class="btn btn-primary" onclick="toggleEditMode()">
+                        <i class="fas fa-edit"></i> Edit Profile
+                    </button>
+                    <a href="{% url 'logout' %}" class="btn btn-logout" style="text-decoration: none;">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </div>
+            </div>
+
+            <!-- Edit Mode -->
+            <form method="POST" class="edit-mode" id="editMode" enctype="multipart/form-data">
+
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="phone"><i class="fas fa-phone"></i> Phone Number</label>
+                    <input type="tel" id="phone" name="phone" value="{{ profile.phone|default:'' }}" placeholder="Enter your phone number">
+                </div>
+
+                <div class="form-group">
+                    <label for="bio"><i class="fas fa-comment"></i> Bio</label>
+                    <textarea id="bio" name="bio" placeholder="Tell us about yourself...">{{ profile.bio|default:'' }}</textarea>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="toggleEditMode()">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Profile Last Updated -->
+        {% if profile.updated_at %}
+        <div style="margin-top: 30px; padding: 15px; background: #e7f3ff; border-radius: 8px; text-align: center; color: #666; font-size: 0.9rem;">
+            <i class="fas fa-clock"></i> Profile last updated: <strong>{{ profile.updated_at|date:"d M Y, H:i" }}</strong>
+        </div>
+        {% endif %}
+
+        </div>
+    </div>
+
+    <!-- Notification System -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            let cropper = null;
+
+            // ---------- EDIT PROFILE TOGGLE ----------
+            window.toggleEditMode = function () {
+                const viewMode = document.getElementById('viewMode');
+                const editMode = document.getElementById('editMode');
+
+                viewMode.style.display = viewMode.style.display === 'none' ? 'block' : 'none';
+                editMode.style.display = editMode.style.display === 'none' ? 'block' : 'none';
+            };
+
+            // ---------- PROFILE IMAGE ----------
+            window.triggerFileInput = function () {
+                document.getElementById('profilePictureInput').click();
+            };
+
+            window.handleImageSelect = function (event) {
+                const file = event.target.files[0];
+                if (!file) return;
+
+                if (!['image/jpeg', 'image/png'].includes(file.type)) {
+                    alert('Only JPG or PNG allowed');
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                const image = document.getElementById('cropImage');
+                image.src = e.target.result;
+
+            document.getElementById('cropModal').classList.remove('hidden');
+
+            if (cropper) cropper.destroy();
+            cropper = new Cropper(image, {
+                aspectRatio: 1,
+                viewMode: 1,
+                background: false,
+            });
+        };
+        reader.readAsDataURL(file);
+    };
+
+    window.closeCropModal = function () {
+        document.getElementById('cropModal').classList.add('hidden');
+        if (cropper) cropper.destroy();
+        cropper = null;
+    };
+
+    window.cropAndUpload = function () {
+        if (!cropper) return;
+
+        const canvas = cropper.getCroppedCanvas({ width: 300, height: 300 });
+
+        canvas.toBlob(blob => {
+            const formData = new FormData();
+            formData.append('profile_picture', blob, 'profile.jpg');
+            formData.append('csrfmiddlewaretoken',
+                document.querySelector('[name=csrfmiddlewaretoken]').value
+            );
+
+            fetch(window.location.pathname, {
+                method: 'POST',
+                body: formData
+            }).then(res => {
+                if (res.ok) location.reload();
+                else alert('Upload failed');
+            });
+        }, 'image/jpeg');
+
+        closeCropModal();
+    };
+
+    // ---------- DELETE IMAGE ----------
+    window.deleteProfilePicture = function () {
+        if (!confirm('Remove profile picture?')) return;
+
+        const formData = new FormData();
+        formData.append('delete_picture', 'true');
+        formData.append('csrfmiddlewaretoken',
+            document.querySelector('[name=csrfmiddlewaretoken]').value
+        );
+
+        fetch(window.location.pathname, {
+            method: 'POST',
+            body: formData
+        }).then(res => {
+            if (res.ok) location.reload();
+            else alert('Delete failed');
+        });
+    };
+
+});
+</script>
+
+
+</body>
+
+</html>
+{% endblock %}

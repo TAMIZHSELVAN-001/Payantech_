@@ -1,0 +1,90 @@
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PAYANTECH | Services</title>
+  <link rel="icon" href="{% static 'images/logo2.png' %}">
+  <link rel="stylesheet" href="{% static 'css/background-effects.css' %}">
+  <link rel="stylesheet" href="{% static 'css/services.css' %}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Header --> 
+  <nav class="navbar">
+    <img src="{% static 'images/logo.png' %}" alt="Logo" class="logo"/>
+    <div class="navbar-container">
+      <button class="navbar-toggle">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+      
+      <ul class="navbar-menu effect">
+        <li><a href="{% url 'home' %}"><span><i class="fas fa-home"></i> Home</span></a></li>
+        <li><a href="{% url 'services' %}" class="active"><span><i class="fas fa-briefcase"></i> Services</span></a></li>
+        <li><a href="{% url 'contact' %}"><span><i class="fas fa-envelope"></i> Contact Us</span></a></li>
+      </ul>
+    </div>
+  </nav>
+  <section class="hero">
+    <h1>Our Services</h1>
+  </section>
+
+  <!-- Services Section -->
+  <section class="services">
+    <div class="service-card green reveal">
+      <i class="fa-solid fa-code"></i>
+      <h3>Web Development</h3>
+      <p>Building responsive, high-performing websites for impactful online presence.</p>
+    </div>
+    <div class="service-card yellow reveal">
+      <i class="fa-solid fa-computer"></i>
+      <h3>Software Development</h3>
+      <p>Developing custom software solutions that drive efficiency and growth.</p>
+    </div>
+    <div class="service-card teal reveal">
+      <i class="fa-solid fa-mobile-screen"></i>
+      <h3>Mobile App Development</h3>
+      <p>Designing intuitive, high-performance mobile apps that engage and inspire users.</p>
+    </div>
+    <div class="service-card red reveal">
+      <i class="fa-solid fa-user-pen"></i>
+      <h3>UI/UX Design</h3>
+      <p>Crafting user-centric designs that blend creativity, usability, and seamless experience.</p>
+    </div>
+    <div class="service-card purple reveal">
+      <i class="fa-solid fa-network-wired"></i>
+      <h3>Infrastructure as a Services</h3>
+      <p>Delivering secure, scalable, and reliable IT infrastructure solutions.</p>
+    </div>
+    <div class="service-card blue reveal">
+      <i class="fa-solid fa-handshake"></i>
+      <h3>Sourcing</h3>
+      <p>Providing efficient, reliable, and cost-effective IT sourcing solutions.</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="fade">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <img src="{% static 'images/logo2.png' %}" alt="Logo" />
+      </div>
+      <div class="footer-info">
+        <a href="mailto:support@payantech.in" class="foot"><i class="fa-solid fa-envelope"></i>support@payantech.in</a>
+        <a><i class="fa-solid fa-location-dot"></i>Tenkasi Main Road, Punnaiyapuram, Puliyangudi, Tenkasi - 627855</a>
+        <a href="tel:80722 98080, 96771 55757" class="foot"><i class="fa-solid fa-phone"></i>80722 98080, 96771 55757</a>
+      </div>
+    </div>
+  </footer>
+  <script src="{% static 'js/service.js' %}"></script>
+</body>
+</html>
+{% endblock %}

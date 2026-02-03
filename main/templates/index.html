@@ -1,0 +1,317 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PAYANTECH | Home</title>
+  <link rel="icon" href="images/logo2.png">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Django Messages -->
+  {% if messages %}
+    {% for message in messages %}
+      <div class="django-message" data-type="{% if message.tags %}{{ message.tags }}{% else %}info{% endif %}" style="display: none;">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+
+  <!-- Header --> 
+  <nav class="navbar">
+    <img src="{% static 'images/logo.png' %}" alt="Logo" class="logo"/>
+    <div class="navbar-container">
+      <button class="navbar-toggle">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+      
+      <ul class="navbar-menu effect">
+        <li><a href="{% url 'home' %}" class="active"><span><i class="fas fa-home"></i> Home</span></a></li>
+        <li><a href="{% url 'services' %}"><span><i class="fas fa-briefcase"></i> Services</span></a></li>
+        <li><a href="{% url 'contact' %}"><span><i class="fas fa-envelope"></i> Contact Us</span></a></li>
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'profile' %}"><span><i class="fas fa-user-circle"></i> Profile</span></a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+  <!-- Hero Section -->
+  <section class="hero fade-on-scroll">
+    <div class="hero-content fade">
+      <h1><span class="text"></span></h1>
+      <p>
+        At PAYANTECH, we’re building the next generation of smart technology
+        solutions designed to transform how businesses and consumers interact
+        with the digital world. Whether you’re scaling a startup or
+        streamlining enterprise systems, our tools are crafted to simplify
+        complexity and accelerate growth.
+      </p>
+      <button class="btn">Explore More →</button>
+    </div>
+    
+  </section>
+
+  <!-- Core Expertise -->
+  <section class="expertise fade">
+    <h2>Our Core Expertise</h2>
+    <div class="cards-1">
+      <div class="card peach reveal"> 
+        <img src="{% static 'images/icon-1.png' %}" alt="" class="icon">
+        <h3>Custom Software Development</h3>
+        <p>Tailored apps and enterprise solutions built for performance and scalability.</p>
+      </div>
+      <div class="card green reveal">
+        <img src="{% static 'images/icon-2.png' %}" alt="" class="icon">
+        <h3>Fintech & Payment Solutions</h3>
+        <p>Secure, smart, and scalable systems for seamless digital transactions.</p>
+      </div>
+      <div class="card blue reveal">
+        <img src="{% static 'images/icon-3.png' %}" alt="" class="icon">
+        <h3>Cloud Integration & Infrastructure</h3>
+        <p>Reliable, cost-optimized, and scalable cloud environments.</p>
+      </div>
+    </div>
+    <br><br>
+    <div class="cards-2">
+      <div class="card lightblue reveal">
+        <img src="{% static 'images/icon-4.png' %}" alt="" class="icon">
+        <h3>Design Solutions</h3>
+        <p>Creative UI/UX and branding that elevate digital experiences.</p>
+      </div>
+      <div class="card pink reveal">
+        <img src="{% static 'images/icon-5.png' %}" alt="" class="icon">
+        <h3>IT Infrastructure</h3>
+        <p>End-to-end network, server, and security management for smooth operations.</p>
+      </div>
+      <div class="card purple reveal">
+        <img src="{% static 'images/icon-6.png' %}" alt="" class="icon">
+        <h3>Digital Marketing</h3>
+        <p>Data-driven marketing strategies that boost visibility and growth.</p>
+      </div>
+    </div>
+  </section>
+
+    <div class="heading fade">
+      <h2>What We Do</h2>
+      <br>
+    </div>
+  <section class="what-we-do fade">
+    <div class="content">
+      <img src="{% static 'images/img2.png' %}" alt="Creative Work" class="reveal-left" />
+      <div class="text reveal-right">
+        <h3>Creative Approach</h3>
+        <br>
+        <p>Transforming imagination into reality, one detail at a time. Discover creativity redefined through our visionary process.</p><br>
+        <h3>Guaranteed Success</h3><br>
+        <p>Our expertise ensures measurable results every time. Count on us for strategies that turn goals into achievements.</p><br>
+        <h3>Innovative Ideas</h3><br>
+        <p>Inspiring new ways of thinking and creating. Experience the difference that true innovation brings.</p><br>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="fade">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <img src="{% static 'images/logo2.png' %}" alt="Logo" />
+      </div>
+      <div class="footer-info">
+        <a href="mailto:support@payantech.in" class="foot"><i class="fa-solid fa-envelope"></i>support@payantech.in</a>
+        <a><i class="fa-solid fa-location-dot"></i>Tenkasi Main Road, Punnaiyapuram, Puliyangudi, Tenkasi - 627855</a>
+        <a href="tel:80722 98080, 96771 55757" class="foot"><i class="fa-solid fa-phone"></i>80722 98080, 96771 55757</a>
+      </div>
+    </div>
+  </footer>
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  /* Typed.js */
+  const textEl = document.querySelector(".text");
+  if (textEl && typeof Typed !== "undefined") {
+    new Typed(textEl, {
+      strings: ["INNOVATE", "INTEGRATE", "ELEVATE"],
+      typeSpeed: 100,
+      backSpeed: 100,
+      backDelay: 1000,
+      loop: true
+    });
+  }
+
+  /* Button click */
+  const btn = document.querySelector(".btn");
+  if (btn) {
+    btn.addEventListener("click", () => {
+      alert("Exploring PAYANTECH’s innovations!");
+    });
+  }
+
+  /* Scroll effects */
+  const hero = document.querySelector(".fade-on-scroll");
+  const navbar = document.querySelector(".navbar");
+
+  window.addEventListener("scroll", () => {
+    let scrollY = window.scrollY;
+
+    if (hero) {
+      hero.style.opacity = Math.max(1 - scrollY / 400, 0);
+    }
+
+    if (navbar) {
+      navbar.classList.toggle("scrolled", scrollY > 50);
+    }
+  });
+
+  /* Scroll reveal */
+  const revealEls = document.querySelectorAll(
+    ".reveal, .reveal-left, .reveal-right, footer"
+  );
+
+  if (revealEls.length) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+        }
+      });
+    }, { threshold: 0.2 });
+
+    revealEls.forEach(el => observer.observe(el));
+  }
+
+  /* Navbar toggle */
+  const navbarToggle = document.querySelector(".navbar-toggle");
+  const navbarMenu = document.querySelector(".navbar-menu");
+
+  if (navbarToggle && navbarMenu) {
+    navbarToggle.addEventListener("click", () => {
+      navbarToggle.classList.toggle("active");
+      navbarMenu.classList.toggle("active");
+    });
+  }
+
+});
+</script>
+
+<!-- Notification System -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Notification function
+    function showNotification(message, type) {
+        const existingNotif = document.querySelector('.notification');
+        if (existingNotif) {
+            existingNotif.remove();
+        }
+
+        const notification = document.createElement('div');
+        notification.classList.add('notification', type);
+        notification.innerHTML = `
+            <span>${message}</span>
+            <button class="close-btn">&times;</button>
+        `;
+
+        document.body.insertBefore(notification, document.body.firstChild);
+
+        notification.querySelector('.close-btn').addEventListener('click', function() {
+            notification.remove();
+        });
+
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.remove();
+            }
+        }, 5000);
+    }
+
+    // Handle Django messages
+    const djangoMessages = document.querySelectorAll('.django-message');
+    if (djangoMessages.length > 0) {
+        djangoMessages.forEach(msg => {
+            const messageText = msg.textContent.trim();
+            const messageType = msg.getAttribute('data-type') || 'error';
+            if (messageText) {
+                showNotification(messageText, messageType);
+            }
+        });
+    }
+});
+</script>
+
+<style>
+    .notification {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 16px 24px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+        font-weight: 500;
+        animation: slideIn 0.3s ease-in-out;
+        z-index: 9999;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        min-width: 300px;
+    }
+
+    .notification.error {
+        background-color: #ff4757;
+        border: 1px solid #ff3838;
+    }
+
+    .notification.success {
+        background-color: #2ed573;
+        border: 1px solid #26de81;
+    }
+
+    .notification span {
+        color: #fff;
+        flex: 1;
+        font-size: 14px;
+    }
+
+    .notification .close-btn {
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 0;
+        line-height: 1;
+        transition: 0.2s;
+    }
+
+    .notification .close-btn:hover {
+        transform: scale(1.2);
+    }
+
+    @keyframes slideIn {
+        from {
+            transform: translateX(400px);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .notification {
+            right: 10px;
+            left: 10px;
+            min-width: auto;
+        }
+    }
+</style>
+
+</body>
+</html>

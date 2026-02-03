@@ -1,0 +1,88 @@
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payantech | Contact Us</title>
+  <link rel="icon" href="{% static 'images/logo2.png' %}">
+  <link rel="stylesheet" href="{% static 'css/background-effects.css' %}">
+  <link rel="stylesheet" href="{% static 'css/contact.css' %}">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Navbar -->
+   <nav class="navbar">
+    <img src="{% static 'images/logo.png' %}" alt="Logo" class="logo"/>
+    <div class="navbar-container">
+      <button class="navbar-toggle">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+      
+      <ul class="navbar-menu effect">
+        <li><a href="{% url 'home' %}"><span><i class="fas fa-home"></i> Home</span></a></li>
+        <li><a href="{% url 'services' %}"><span><i class="fas fa-briefcase"></i> Services</span></a></li>
+        <li><a href="{% url 'contact' %}" class="active"><span><i class="fas fa-envelope"></i> Contact Us</span></a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Contact Us</h1>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact-section">
+    <div class="contact-container">
+      <!-- Left: Form -->
+      <div class="contact-form">
+        <form class="contactForm" method="POST">
+          {% csrf_token %}
+          <label for="name">Name</label>
+          <input type="text" name="name" required>
+          <label for="email">Email</label>
+          <input type="email" name="email" required>
+          <label for="phone">Phone</label>
+          <input type="text" name="phone" required>
+          <label for="message">Message</label>
+          <textarea name="message" rows="5"></textarea>
+          <button type="submit">Send</button>
+
+          {% if success %}
+          <p style="color:green;">Message sent successfully!</p>
+          {% endif %}
+        </form>
+
+      </div>
+
+      <!-- Right: Image -->
+      <div class="contact-image">
+        <img src="{% static 'images/img4.jpeg' %}" alt="Contact Illustration">
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="fade">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <img src="{% static 'images/logo2.png' %}" alt="Logo" />
+      </div>
+      <div class="footer-info">
+        <a href="mailto:support@payantech.in" class="foot"><i class="fa-solid fa-envelope"></i>support@payantech.in</a>
+        <a><i class="fa-solid fa-location-dot"></i>Tenkasi Main Road, Punnaiyapuram, Puliyangudi, Tenkasi - 627855</a>
+        <a href="tel:80722 98080, 96771 55757" class="foot"><i class="fa-solid fa-phone"></i>80722 98080, 96771 55757</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="{% static 'js/contact.js' %}"></script>
+</body>
+</html>
+{% endblock %}
