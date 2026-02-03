@@ -163,7 +163,7 @@ body {
 /* Hero Section */
 .hero {
   background: linear-gradient(to right, rgba(108, 188, 245, 0.85), rgba(232, 244, 253, 0.85)),
-    url('images/img5.jpeg') center/cover no-repeat;
+    url('../images/img5.jpeg') center/cover no-repeat;
   text-align: center;
   color: #255E7E;
   padding: 80px 20px;
