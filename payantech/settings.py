@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+import dj_database_url
 
 # Load environment variables from .env file
 load_dotenv()
@@ -101,6 +102,15 @@ DATABASES = {
         'PORT': os.getenv('DB_PORT', ''),
     }
 }
+
+# Prefer DATABASE_URL if provided (Render Postgres), fallback to defaults above.
+database_url = os.getenv('DATABASE_URL')
+if database_url:
+    DATABASES['default'] = dj_database_url.config(
+        default=database_url,
+        conn_max_age=600,
+        ssl_require=True,
+    )
 
 
 
