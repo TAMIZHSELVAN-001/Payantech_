@@ -104,13 +104,15 @@ DATABASES = {
 }
 
 # Prefer DATABASE_URL if provided (Render Postgres), fallback to defaults above.
-database_url = os.getenv('DATABASE_URL')
-if database_url:
-    DATABASES['default'] = dj_database_url.config(
-        default=database_url,
-        conn_max_age=600,
-        ssl_require=True,
+import os
+import dj_database_url
+
+DATABASES = {
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL')
     )
+}
+
 
 
 
